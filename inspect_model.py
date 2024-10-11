@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
+# Function to visualize the weights of the model
 def save_model_image(model, episode, state):
     """
     Visualize and save the weight heatmaps for each layer of the model.

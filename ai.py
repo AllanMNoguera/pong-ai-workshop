@@ -1,8 +1,6 @@
-import pygame
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import numpy as np
 from pong_game import PongEnv  # Import the PongEnv you built
 from inspect_model import save_model_image  # Import the function to save the model image
 
@@ -13,13 +11,14 @@ class PolicyNetwork(nn.Module):
         self.fc1 = nn.Linear(6, 128)  # Input size is 6 (paddle and ball positions and velocities)
         self.fc2 = nn.Linear(128, 128)
         self.fc3 = nn.Linear(128, 64)
-        self.fc4 = nn.Linear(64, 3)
+        self.fcf = nn.Linear(64, 3)
 
     def forward(self, x):
         x = torch.relu(self.fc1(x))
-        x = torch.tanh(self.fc2(x))
+        # Excercise: Try using different activation functions
+        x = torch.relu(self.fc2(x))
         x = torch.relu(self.fc3(x))
-        x = torch.softmax(self.fc4(x), dim=-1)
+        x = torch.softmax(self.fcf(x), dim=-1)
         return x
 
 
@@ -103,7 +102,7 @@ def main():
         state = env.reset()
         episode_reward = 0
 
-        for t in range(10000):  # Limit the number of steps per episode
+        for _ in range(10000):  # Limit the number of steps per episode
             action = agent.select_action(state, env)
             state, reward, done = env.step(action)
             agent.store_reward(reward)
