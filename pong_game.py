@@ -60,20 +60,6 @@ class PongEnv:
         ], dtype=np.float32)
 
     def step(self, action):
-        # Override ai action if user is controlling the paddle
-        keys = pygame.key.get_pressed()
-
-        if self.toggle_manual_override:
-            action = 2
-        if keys[pygame.K_w] and self.toggle_manual_override:
-            action = 0
-        if keys[pygame.K_s] and self.toggle_manual_override:
-            action = 1
-        if keys[pygame.K_q]:
-            self.toggle_manual_override = True
-        if keys[pygame.K_e]:
-            self.toggle_manual_override = False
-        
         # Action is either 0 (up), 1 (down), or 2 (stay)
         if action == 0 and self.paddle_left.top > 0:
             self.paddle_left.y -= self.paddle_speed
