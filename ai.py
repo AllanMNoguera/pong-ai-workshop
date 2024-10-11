@@ -1,8 +1,6 @@
-import pygame
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import numpy as np
 from pong_game import PongEnv  # Import the PongEnv you built
 from inspect_model import save_model_image  # Import the function to save the model image
 
@@ -103,7 +101,7 @@ def main():
         state = env.reset()
         episode_reward = 0
 
-        for t in range(10000):  # Limit the number of steps per episode
+        for _ in range(10000):  # Limit the number of steps per episode
             action = agent.select_action(state, env)
             state, reward, done = env.step(action)
             agent.store_reward(reward)

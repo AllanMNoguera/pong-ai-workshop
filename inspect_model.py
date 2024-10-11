@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
 def save_model_image(model, episode, state):
     """
